@@ -210,7 +210,7 @@ def main():
         )
     with col2:
         st.metric(
-            label="Scenario 2 Final Balance (Slate Blue)", 
+            label="Scenario 2 Final Balance (purple)", 
             value=f"${final_balance_2:,.2f}", 
             delta=f"${final_interest_2:,.2f} Total Interest"
         )
@@ -227,7 +227,7 @@ def main():
         color='Scenario',
         color_discrete_map={
             'Scenario 1': '#50C878', # Emerald Green
-            'Scenario 2': '#6A5ACD'  # Slate Blue
+            'Scenario 2': '#6A5ACD'  # purple
         },
         labels={"Balance": "Portfolio Balance ($)", "Year": "Years Elapsed"}
     )
@@ -260,7 +260,7 @@ def main():
         barmode="group",
         color_discrete_map={
             'Scenario 1': '#50C878', # Emerald Green
-            'Scenario 2': '#6A5ACD'  # Slate Blue
+            'Scenario 2': '#6A5ACD'  # purple
         },
         labels={"Yearly Interest": "Annual Interest ($)", "Year": "Years Elapsed"}
     )
