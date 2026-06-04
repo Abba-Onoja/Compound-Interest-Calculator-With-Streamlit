@@ -82,7 +82,6 @@ def calculate_compound_interest(principal, rate, years, comp_freq, cont_amt, con
     
     Uses standard future value annuity formulas based on effective rates.
     """
-    # Mapping frequency strings to numerical periods per year
     n_map = {'Daily': 365, 'Monthly': 12, 'Annually': 1}
     p_map = {'Monthly': 12, 'Annually': 1}
     
@@ -102,26 +101,21 @@ def calculate_compound_interest(principal, rate, years, comp_freq, cont_amt, con
             })
             continue
 
-        # 1. Calculate growth of the initial principal
         if r > 0:
             fv_principal = principal * (1 + r / n)**(n * t)
         else:
             fv_principal = principal
 
-        # 2. Calculate growth of ongoing contributions
         if cont_amt > 0:
             total_payments = p * t
             if r > 0:
-                # Calculate the effective interest rate per payment period
                 r_p = (1 + r / n)**(n / p) - 1
-                # Future Value of an Ordinary Annuity
                 fv_contributions = cont_amt * (((1 + r_p)**total_payments - 1) / r_p)
             else:
                 fv_contributions = cont_amt * total_payments
         else:
             fv_contributions = 0.0
 
-        # 3. Aggregate totals for the current year
         total_balance = fv_principal + fv_contributions
         total_contributions = principal + (cont_amt * p * t)
         interest = total_balance - total_contributions
@@ -258,7 +252,7 @@ def main():
     # Filter out Year 0 since no interest is earned at the exact moment of initial deposit
     df_filtered = df_combined[df_combined['Year'] > 0]
     
-    fig_hist = px.histogram(
+    fig_hist = px.bar(
         df_filtered,
         x="Year",
         y="Yearly Interest",
@@ -298,7 +292,7 @@ def main():
     format_mapping = {col: "${:,.2f}" for col in df_table.columns if col != 'Year'}
     st.dataframe(df_table.style.format(format_mapping), use_container_width=True)
     
-    # Convert dataframe to CSV for download
+    
     csv = df_table.to_csv(index=False).encode('utf-8')
     
     st.download_button(
